@@ -1,0 +1,1045 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MatPoint — Vagas Esportivas & Pontos de Encontro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(0.95); }
+      50% { transform: scale(1.06); }
+    }
+    .animate-logo-pulse {
+      animation: logoPulse 1.3s ease-in-out infinite;
+    }
+
+    @keyframes progressFill {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+    .animate-splash-bar {
+      animation: progressFill 2.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes pinBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    .pin-float {
+      animation: pinBounce 2s ease-in-out infinite;
+    }
+
+    .radar-bg {
+      background-color: #0F172A;
+      background-image:
+        radial-gradient(circle at 50% 45%, rgba(0, 230, 118, 0.14) 0%, transparent 65%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 100% 100%, 26px 26px, 26px 26px;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 min-h-screen flex items-center justify-center sm:p-4 selection:bg-[#FF5722] selection:text-white">
+
+  <!-- Moldura Realista de Smartphone -->
+  <div class="relative w-full h-screen sm:w-[404px] sm:h-[836px] bg-[#F8FAFC] sm:rounded-[46px] sm:border-[10px] sm:border-slate-900 sm:shadow-[0_25px_70px_rgba(0,0,0,0.85),0_0_0_2px_rgba(255,255,255,0.08)] flex flex-col overflow-hidden">
+
+    <!-- Dynamic Island / Notch decorativo (Desktop) -->
+    <div class="hidden sm:flex justify-center pt-2 pb-1 bg-white z-30 shrink-0">
+      <div class="w-28 h-5 bg-slate-950 rounded-full flex items-center justify-end px-2.5">
+        <div class="w-2.5 h-2.5 rounded-full bg-slate-800 border border-slate-700"></div>
+      </div>
+    </div>
+
+    <!-- ==================== SPLASH SCREEN ANIMADA (2.8s) ==================== -->
+    <div id="splash-screen" class="absolute inset-0 z-50 bg-[#0F172A] flex flex-col items-center justify-center p-8 transition-opacity duration-300">
+      <div class="animate-logo-pulse flex flex-col items-center">
+        <!-- Logotipo Oficial Vetorial MatPoint -->
+        <svg width="96" height="110" viewBox="0 0 100 115" class="drop-shadow-[0_12px_24px_rgba(255,87,34,0.35)]">
+          <defs>
+            <linearGradient id="splashPinGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FF7043" />
+              <stop offset="100%" stop-color="#FF5722" />
+            </linearGradient>
+          </defs>
+          <!-- Pino de Ponto de Encontro -->
+          <path d="M50 5 C25 5, 8 23, 8 46 C8 74, 50 110, 50 110 C50 110, 92 74, 92 46 C92 23, 75 5, 50 5 Z" fill="url(#splashPinGrad)" />
+          <!-- Núcleo Escuro -->
+          <circle cx="50" cy="46" r="27" fill="#0F172A" />
+          <!-- Linhas Curvas de Bola Esportiva em Branco -->
+          <path d="M27 36 Q50 52 73 36" stroke="#FFFFFF" stroke-width="2.6" fill="none" stroke-linecap="round" />
+          <path d="M32 62 Q50 44 68 62" stroke="#FFFFFF" stroke-width="2.6" fill="none" stroke-linecap="round" />
+          <!-- Mira Tática em Verde Néon #00E676 -->
+          <circle cx="50" cy="46" r="11" stroke="#00E676" stroke-width="2.5" fill="none" />
+          <circle cx="50" cy="46" r="3.5" fill="#00E676" />
+          <line x1="50" y1="15" x2="50" y2="27" stroke="#00E676" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="50" y1="65" x2="50" y2="77" stroke="#00E676" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="19" y1="46" x2="31" y2="46" stroke="#00E676" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="69" y1="46" x2="81" y2="46" stroke="#00E676" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
+
+        <h1 class="text-white text-4xl font-black tracking-[0.14em] mt-4">
+          MAT<span class="text-[#FF5722]">POINT</span>
+        </h1>
+        <p class="text-slate-400 text-[11px] font-bold tracking-[0.18em] uppercase mt-1.5 text-center">
+          Conectando Times • Arenas • Prêmios
+        </p>
+      </div>
+
+      <!-- Barra de Progresso -->
+      <div class="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden mt-9">
+        <div id="splash-bar" class="h-full bg-[#FF5722] rounded-full animate-splash-bar"></div>
+      </div>
+    </div>
+
+    <!-- ==================== CABEÇALHO SUPERIOR ==================== -->
+    <header class="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between shrink-0 z-20">
+      <button onclick="triggerSplash()" title="Rever abertura da marca" class="flex items-center gap-2 group active:scale-95 transition">
+        <svg width="30" height="35" viewBox="0 0 100 115">
+          <path d="M50 5 C25 5, 8 23, 8 46 C8 74, 50 110, 50 110 C50 110, 92 74, 92 46 C92 23, 75 5, 50 5 Z" fill="#FF5722" />
+          <circle cx="50" cy="46" r="27" fill="#0F172A" />
+          <path d="M27 36 Q50 52 73 36" stroke="#FFFFFF" stroke-width="3" fill="none" />
+          <path d="M32 62 Q50 44 68 62" stroke="#FFFFFF" stroke-width="3" fill="none" />
+          <circle cx="50" cy="46" r="11" stroke="#00E676" stroke-width="3" fill="none" />
+          <circle cx="50" cy="46" r="4" fill="#00E676" />
+        </svg>
+        <span class="text-lg font-black tracking-tight text-[#0F172A]">
+          MAT<span class="text-[#FF5722]">POINT</span>
+        </span>
+      </button>
+
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1 bg-orange-50 border border-orange-200/70 px-2.5 py-1 rounded-full">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#FF5722]"></i>
+          <span class="text-xs font-bold text-orange-800">Sua Região</span>
+        </div>
+        <button onclick="switchTab('profile')" id="header-avatar-btn" class="w-8 h-8 rounded-full bg-slate-100 border border-slate-300 overflow-hidden flex items-center justify-center">
+          <!-- Mini avatar SVG -->
+        </button>
+      </div>
+    </header>
+
+    <!-- ==================== CONTEÚDO PRINCIPAL (ABAS) ==================== -->
+    <main id="main-content" class="flex-1 overflow-y-auto pb-20">
+
+      <!-- ==================== ABA 1: BUSCAR (BLABLACAR + PONTOS PARCEIROS) ==================== -->
+      <section id="tab-search" class="flex flex-col">
+        <!-- Filtros Horizontais -->
+        <div class="bg-white border-b border-slate-200 py-2.5 px-4 flex gap-2 overflow-x-auto no-scrollbar sticky top-0 z-10">
+          <button onclick="setSportFilter('all')" id="filter-all" class="filter-chip px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-[#0F172A] text-white shrink-0 transition">
+            Todos
+          </button>
+          <button onclick="setSportFilter('paintball')" id="filter-paintball" class="filter-chip px-3.5 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200 shrink-0 transition">
+            🎯 Paintball
+          </button>
+          <button onclick="setSportFilter('beach_volley')" id="filter-beach_volley" class="filter-chip px-3.5 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200 shrink-0 transition">
+            🏖️ Vôlei Praia
+          </button>
+          <button onclick="setSportFilter('indoor_volley')" id="filter-indoor_volley" class="filter-chip px-3.5 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200 shrink-0 transition">
+            🏐 Vôlei Quadra
+          </button>
+          <button onclick="setSportFilter('footvolley')" id="filter-footvolley" class="filter-chip px-3.5 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200 shrink-0 transition">
+            ⚽ Futevôlei
+          </button>
+        </div>
+
+        <div class="p-4 space-y-3.5">
+          <!-- Banner Estilo Parada de Conveniência / Frango Assado -->
+          <div onclick="switchTab('stops')" class="cursor-pointer bg-gradient-to-r from-[#0F172A] to-slate-800 rounded-2xl p-3.5 text-white flex items-center justify-between gap-3 shadow-sm active:scale-[0.99] transition">
+            <div class="space-y-0.5">
+              <div class="flex items-center gap-1.5">
+                <span class="px-2 py-0.5 rounded bg-[#00E676] text-[#0F172A] font-black text-[10px] uppercase">
+                  Paradas Oficiais
+                </span>
+                <span class="text-[11px] text-slate-300 font-medium">Conveniência & Arenas</span>
+              </div>
+              <p class="text-xs font-bold text-white leading-snug pt-0.5">
+                Jogue em arenas com estacionamento, ducha e cupons pós-jogo →
+              </p>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+              <i data-lucide="coffee" class="w-5 h-5 text-[#00E676]"></i>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm font-extrabold text-[#0F172A]">Partidas com Vagas Abertas</h2>
+            <span id="match-counter" class="text-xs font-semibold text-slate-500">4 partidas</span>
+          </div>
+
+          <!-- Feed de Cards estilo BlaBlaCar -->
+          <div id="matches-list" class="space-y-3">
+            <!-- Injetado via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== ABA 2: PARADAS (PONTOS DE ENCONTRO FRANGO ASSADO) ==================== -->
+      <section id="tab-stops" class="hidden p-4 space-y-4">
+        <div>
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600">Rede de Conveniência Esportiva</span>
+          <h2 class="text-xl font-black text-[#0F172A]">Pontos de Encontro & Arenas</h2>
+          <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">
+            Arenas parceiras verificadas com infraestrutura completa para estacionar, jogar, tomar ducha e confraternizar.
+          </p>
+        </div>
+
+        <!-- Mini Mapa Radar Interativo -->
+        <div class="relative h-44 rounded-2xl radar-bg border border-slate-800 overflow-hidden p-3 flex flex-col justify-between shadow-md">
+          <div class="flex items-center justify-between z-10">
+            <span class="px-2.5 py-1 rounded-full bg-slate-900/90 border border-slate-700 text-[11px] font-bold text-white flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[#00E676]"></span>
+              3 Paradas Parceiras Ativas
+            </span>
+            <span class="text-[10px] font-bold text-[#FF5722] bg-slate-900/90 px-2.5 py-1 rounded-full border border-slate-700">
+              Raio 10 km
+            </span>
+          </div>
+
+          <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 360 170">
+            <path d="M -10 135 Q 110 95, 195 75 T 370 30" fill="none" stroke="#FF5722" stroke-width="3" stroke-dasharray="6 6" opacity="0.55" />
+            <path d="M 75 -10 Q 145 85, 250 180" fill="none" stroke="#00E676" stroke-width="2" opacity="0.35" />
+          </svg>
+
+          <!-- Pins Clicáveis -->
+          <button onclick="highlightStop('s1')" class="pin-float absolute top-14 left-8 bg-slate-900 border-2 border-[#00E676] px-2.5 py-1 rounded-xl shadow-lg flex items-center gap-1.5 z-10">
+            <span class="text-xs">🎯</span>
+            <span class="text-[10px] font-extrabold text-white">Bunker Tático</span>
+          </button>
+
+          <button onclick="highlightStop('s2')" class="pin-float absolute top-11 right-8 bg-slate-900 border-2 border-[#FF5722] px-2.5 py-1 rounded-xl shadow-lg flex items-center gap-1.5 z-10">
+            <span class="text-xs">🏖️</span>
+            <span class="text-[10px] font-extrabold text-white">Beach Club</span>
+          </button>
+
+          <button onclick="highlightStop('s3')" class="pin-float absolute bottom-8 left-24 bg-slate-900 border-2 border-[#00E676] px-2.5 py-1 rounded-xl shadow-lg flex items-center gap-1.5 z-10">
+            <span class="text-xs">⚽</span>
+            <span class="text-[10px] font-extrabold text-white">Point da Areia</span>
+          </button>
+
+          <span class="self-end text-[10px] text-slate-400 bg-slate-950/80 px-2 py-0.5 rounded z-10">
+            Toque em um pino para localizar
+          </span>
+        </div>
+
+        <!-- Cards das Paradas -->
+        <div id="stops-list" class="space-y-3">
+          <!-- Injetado via JS -->
+        </div>
+      </section>
+
+      <!-- ==================== ABA 3: PUBLICAR PARTIDA ==================== -->
+      <section id="tab-publish" class="hidden p-4 space-y-4">
+        <div>
+          <h2 class="text-xl font-black text-[#0F172A]">Abrir Vagas para Partida</h2>
+          <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">
+            Faltou gente no seu time? Publique as vagas e divida o valor automaticamente via Pix.
+          </p>
+        </div>
+
+        <form onsubmit="handlePublish(event)" class="space-y-3.5">
+          <div>
+            <label class="block text-xs font-extrabold uppercase text-slate-600 mb-2">1. Escolha a Modalidade</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button" onclick="selectPublishSport('paintball')" id="pub-sp-paintball" class="pub-sport-btn p-2.5 rounded-xl bg-[#FF5722] text-white font-bold text-xs text-left transition">
+                🎯 Paintball (5v5)
+              </button>
+              <button type="button" onclick="selectPublishSport('beach_volley')" id="pub-sp-beach_volley" class="pub-sport-btn p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold text-xs text-left transition">
+                🏖️ Vôlei Praia (2v2)
+              </button>
+              <button type="button" onclick="selectPublishSport('indoor_volley')" id="pub-sp-indoor_volley" class="pub-sport-btn p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold text-xs text-left transition">
+                🏐 Vôlei Quadra (6v6)
+              </button>
+              <button type="button" onclick="selectPublishSport('footvolley')" id="pub-sp-footvolley" class="pub-sport-btn p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold text-xs text-left transition">
+                ⚽ Futevôlei (2v2)
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-extrabold uppercase text-slate-600 mb-1.5">2. Título da Partida</label>
+            <input type="text" id="pub-title" placeholder="Ex: Paintball Noturno 5v5" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-[#0F172A] focus:outline-none focus:border-[#FF5722]" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-extrabold uppercase text-slate-600 mb-1.5">3. Ponto de Encontro / Arena Parceira</label>
+            <select id="pub-arena" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-[#0F172A] focus:outline-none focus:border-[#FF5722]">
+              <option value="Arena Bunker Sul|Zona Sul|true|15% OFF na recarga de bolinhas">⭐ Arena Bunker Sul (Parceiro Oficial)</option>
+              <option value="Arena Beach Club|Centro|true|Estacionamento + Ducha grátis">⭐ Arena Beach Club (Parceiro Oficial)</option>
+              <option value="Point da Areia|Zona Oeste|true|Cupom Açaí 500ml pós-jogo">⭐ Point da Areia (Parceiro Oficial)</option>
+              <option value="Ginásio Poliesportivo|Zona Norte|false|Quadra coberta oficial">Ginásio Poliesportivo (Comum)</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-extrabold uppercase text-slate-600 mb-1.5">Horário</label>
+              <input type="text" id="pub-time" value="21:00" required class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-[#0F172A] focus:outline-none focus:border-[#FF5722]" />
+            </div>
+            <div>
+              <label class="block text-xs font-extrabold uppercase text-slate-600 mb-1.5">Rateio / Pessoa (R$)</label>
+              <input type="number" id="pub-price" value="45" min="0" required class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-[#0F172A] focus:outline-none focus:border-[#FF5722]" />
+            </div>
+          </div>
+
+          <!-- Checkbox Kit Premiação -->
+          <label class="flex items-start gap-3 bg-white p-3.5 rounded-xl border border-slate-200 cursor-pointer">
+            <input type="checkbox" id="pub-trophy" checked class="w-5 h-5 mt-0.5 accent-[#FF5722] rounded" />
+            <span class="text-xs font-semibold text-slate-800 leading-snug">
+              🏆 Incluir Kit Premiação (10 Medalhas + Troféu MVP) por <strong class="text-[#FF5722]">+R$ 8/pessoa</strong>
+            </span>
+          </label>
+
+          <button type="submit" class="w-full py-3.5 rounded-xl bg-[#FF5722] hover:bg-orange-600 text-white font-extrabold text-sm shadow-lg shadow-orange-500/25 active:scale-[0.99] transition">
+            Publicar Vagas no Radar
+          </button>
+        </form>
+      </section>
+
+      <!-- ==================== ABA 4: PERFIL & AVATAR DINÂMICO ==================== -->
+      <section id="tab-profile" class="hidden p-4 space-y-4">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 flex flex-col items-center text-center shadow-sm">
+          <div id="profile-avatar-box" class="w-28 h-32 flex items-center justify-center">
+            <!-- SVG Avatar injetado via JS -->
+          </div>
+          <div class="flex items-center gap-1.5 mt-2">
+            <h2 class="text-lg font-black text-[#0F172A]">Você • Jogador Verificado</h2>
+            <i data-lucide="badge-check" class="w-5 h-5 text-emerald-500"></i>
+          </div>
+          <p class="text-xs text-slate-500 font-medium mt-0.5">14 Partidas Concluídas • Avaliação 4.9 ★</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 border border-slate-200 space-y-4">
+          <div>
+            <label class="block text-xs font-extrabold uppercase text-slate-600 mb-2">Cor do Uniforme</label>
+            <div class="flex gap-3">
+              <button onclick="setJerseyColor('#FF5722')" id="color-#FF5722" class="color-btn w-9 h-9 rounded-full bg-[#FF5722] ring-2 ring-offset-2 ring-amber-400 transition"></button>
+              <button onclick="setJerseyColor('#0F172A')" id="color-#0F172A" class="color-btn w-9 h-9 rounded-full bg-[#0F172A] transition"></button>
+              <button onclick="setJerseyColor('#0284C7')" id="color-#0284C7" class="color-btn w-9 h-9 rounded-full bg-[#0284C7] transition"></button>
+              <button onclick="setJerseyColor('#16A34A')" id="color-#16A34A" class="color-btn w-9 h-9 rounded-full bg-[#16A34A] transition"></button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-extrabold uppercase text-slate-600 mb-2">
+              Pré-visualizar Equipamento Automático por Esporte
+            </label>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="setAvatarSport('paintball')" id="av-sp-paintball" class="av-sport-btn px-3 py-2.5 rounded-xl bg-[#0F172A] text-white font-bold text-xs text-left transition">
+                🎯 Paintball
+                <span class="block text-[10px] font-normal text-slate-300">Máscara + Marcador</span>
+              </button>
+              <button onclick="setAvatarSport('beach_volley')" id="av-sp-beach_volley" class="av-sport-btn px-3 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 font-bold text-xs text-left transition">
+                🏖️ Vôlei Praia
+                <span class="block text-[10px] font-normal text-slate-500">Óculos UV + Bola</span>
+              </button>
+              <button onclick="setAvatarSport('indoor_volley')" id="av-sp-indoor_volley" class="av-sport-btn px-3 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 font-bold text-xs text-left transition">
+                🏐 Vôlei Quadra
+                <span class="block text-[10px] font-normal text-slate-500">Joelheira + Uniforme</span>
+              </button>
+              <button onclick="setAvatarSport('footvolley')" id="av-sp-footvolley" class="av-sport-btn px-3 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 font-bold text-xs text-left transition">
+                ⚽ Futevôlei
+                <span class="block text-[10px] font-normal text-slate-500">Viseira + Bola</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ==================== BARRA DE NAVEGAÇÃO INFERIOR ==================== -->
+    <nav class="bg-white border-t border-slate-200 px-2 py-2 flex items-center justify-around shrink-0 z-20">
+      <button onclick="switchTab('search')" id="nav-search" class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-[#FF5722] transition">
+        <i data-lucide="search" class="w-5 h-5"></i>
+        <span class="text-[11px] font-extrabold">Buscar</span>
+      </button>
+      <button onclick="switchTab('stops')" id="nav-stops" class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-slate-500 transition">
+        <i data-lucide="map" class="w-5 h-5"></i>
+        <span class="text-[11px] font-semibold">Paradas</span>
+      </button>
+      <button onclick="switchTab('publish')" id="nav-publish" class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-slate-500 transition">
+        <i data-lucide="plus-circle" class="w-5 h-5"></i>
+        <span class="text-[11px] font-semibold">Publicar</span>
+      </button>
+      <button onclick="switchTab('profile')" id="nav-profile" class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-slate-500 transition">
+        <i data-lucide="user" class="w-5 h-5"></i>
+        <span class="text-[11px] font-semibold">Perfil</span>
+      </button>
+    </nav>
+
+    <!-- ==================== MODAL: SALA DA PARTIDA (PIX + EQUIPAMENTO + CHAT) ==================== -->
+    <div id="match-modal" class="hidden absolute inset-0 z-40 bg-[#F8FAFC] flex flex-col">
+      <!-- Top Bar -->
+      <div class="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between shrink-0">
+        <button onclick="closeMatchModal()" class="p-1.5 rounded-lg bg-slate-100 text-[#0F172A] hover:bg-slate-200">
+          <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        </button>
+        <div class="text-center flex-1 px-2">
+          <span id="modal-sport-badge" class="text-[10px] font-extrabold uppercase text-[#FF5722] block leading-none">PAINTBALL</span>
+          <h3 id="modal-title" class="text-sm font-black text-[#0F172A] truncate mt-0.5">Cenário Tático 5v5</h3>
+        </div>
+        <div id="modal-mini-avatar" class="w-9 h-10 flex items-center justify-center">
+          <!-- Avatar equipado para o esporte -->
+        </div>
+      </div>
+
+      <!-- Modal Content -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-3.5">
+        <!-- Info Arena & Horário -->
+        <div class="bg-white rounded-2xl p-3.5 border border-slate-200 flex items-center justify-between">
+          <div>
+            <span id="modal-arena" class="text-xs font-extrabold text-[#0F172A] block">📍 Arena Bunker Sul (Zona Sul)</span>
+            <span id="modal-time" class="text-[11px] text-slate-500 font-medium">Hoje • 20:00 • Organizador: Rafael M. ★ 4.9</span>
+          </div>
+          <span id="modal-spots-pill" class="px-2.5 py-1 rounded-full bg-orange-50 text-[#EA580C] font-extrabold text-[11px]">
+            Faltam 2 vagas
+          </span>
+        </div>
+
+        <!-- Card Racha-Conta via Pix -->
+        <div class="bg-[#0F172A] rounded-2xl p-4 text-white flex items-center justify-between gap-3 shadow-md">
+          <div>
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="qr-code" class="w-4 h-4 text-[#00E676]"></i>
+              <span class="text-sm font-extrabold">Racha-Conta via Pix</span>
+            </div>
+            <p id="modal-pix-desc" class="text-xs text-slate-300 mt-1">
+              Arena Bunker Sul + Kit Premiação MVP
+            </p>
+          </div>
+          <button id="modal-pix-btn" onclick="confirmPix()" class="px-4 py-2.5 rounded-xl bg-[#FF5722] hover:bg-orange-600 text-white font-extrabold text-xs shrink-0 transition">
+            Pagar R$ 55
+          </button>
+        </div>
+
+        <!-- Equipamento Sob Demanda -->
+        <div class="bg-white rounded-2xl p-3.5 border border-slate-200 flex items-center justify-between gap-3">
+          <div>
+            <span class="text-[10px] font-extrabold uppercase text-[#EA580C] block">Retirada na Arena Parceira</span>
+            <h4 id="modal-gear-name" class="text-sm font-bold text-[#0F172A] mt-0.5">Máscara Thermal Anti-Embaçante</h4>
+            <span id="modal-gear-price" class="text-xs text-slate-500 font-semibold">R$ 189,00</span>
+          </div>
+          <button id="modal-gear-btn" onclick="reserveGear()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#0F172A] font-extrabold text-xs shrink-0 transition">
+            Reservar
+          </button>
+        </div>
+
+        <!-- Chat ao Vivo -->
+        <div class="space-y-2 flex-1 flex flex-col">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-extrabold uppercase text-slate-500">Chat da Partida & Caronas</span>
+            <span class="text-[11px] font-bold text-emerald-600">● Grupo Ativo</span>
+          </div>
+          <div id="modal-chat-list" class="bg-white rounded-2xl p-3 border border-slate-200 h-44 overflow-y-auto space-y-2">
+            <!-- Mensagens -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Chat -->
+      <form onsubmit="sendMessage(event)" class="bg-white border-t border-slate-200 p-3 flex gap-2 shrink-0">
+        <input type="text" id="modal-chat-input" placeholder="Enviar mensagem ao grupo ou pedir carona..." class="flex-1 bg-slate-100 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-medium text-[#0F172A] focus:outline-none focus:border-[#FF5722]" />
+        <button type="submit" class="w-11 rounded-xl bg-[#FF5722] text-white flex items-center justify-center hover:bg-orange-600 transition">
+          <i data-lucide="send" class="w-4 h-4"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div id="toast" class="hidden absolute top-16 left-4 right-4 z-50 bg-[#0F172A] text-white px-4 py-3 rounded-xl shadow-xl border border-[#00E676]/50 flex items-center gap-2.5 text-xs font-bold">
+      <i data-lucide="check-circle-2" class="w-4 h-4 text-[#00E676] shrink-0"></i>
+      <span id="toast-text">Ação concluída!</span>
+    </div>
+
+  </div>
+
+  <script>
+    // ==================== DADOS & ESTADO ====================
+    const SPORT_META = {
+      all: { label: 'Todos', color: '#FF5722' },
+      paintball: { label: 'Paintball', color: '#16A34A' },
+      beach_volley: { label: 'Vôlei Praia', color: '#D97706' },
+      indoor_volley: { label: 'Vôlei Quadra', color: '#0284C7' },
+      footvolley: { label: 'Futevôlei', color: '#EA580C' }
+    };
+
+    let matches = [
+      {
+        id: '1',
+        sport: 'paintball',
+        title: 'Cenário Tático 5v5',
+        arena: 'Arena Bunker Sul',
+        region: 'Zona Sul',
+        isPartner: true,
+        perk: '15% OFF na recarga de bolinhas',
+        dateLabel: 'Hoje',
+        time: '20:00',
+        currentPlayers: 8,
+        maxPlayers: 10,
+        price: 55,
+        hasTrophy: true,
+        organizer: 'Rafael M.',
+        rating: '4.9',
+        gearItem: 'Máscara Thermal Anti-Embaçante',
+        gearPrice: 189,
+        pixPaid: false,
+        gearReserved: false,
+        messages: [
+          'Rafael M.: Faltam só 2 vagas para fechar o 5v5! Alguém precisa de carona?',
+          'Bruno K.: Já garanti minha vaga no Pix, chego às 19:45.'
+        ]
+      },
+      {
+        id: '2',
+        sport: 'beach_volley',
+        title: 'Rei da Praia 2v2',
+        arena: 'Arena Beach Club',
+        region: 'Centro',
+        isPartner: true,
+        perk: 'Estacionamento + Ducha grátis',
+        dateLabel: 'Hoje',
+        time: '18:30',
+        currentPlayers: 3,
+        maxPlayers: 4,
+        price: 25,
+        hasTrophy: false,
+        organizer: 'Camila S.',
+        rating: '5.0',
+        gearItem: 'Óculos Esportivo UV400',
+        gearPrice: 110,
+        pixPaid: false,
+        gearReserved: false,
+        messages: [
+          'Camila S.: Falta 1 pessoa para completar a dupla!'
+        ]
+      },
+      {
+        id: '3',
+        sport: 'footvolley',
+        title: 'Desafio Areia Intermediário',
+        arena: 'Point da Areia',
+        region: 'Zona Oeste',
+        isPartner: true,
+        perk: 'Cupom Açaí 500ml pós-jogo',
+        dateLabel: 'Amanhã',
+        time: '17:30',
+        currentPlayers: 2,
+        maxPlayers: 4,
+        price: 30,
+        hasTrophy: true,
+        organizer: 'Thiago R.',
+        rating: '4.8',
+        gearItem: 'Bola Oficial Mikasa FT5',
+        gearPrice: 240,
+        pixPaid: false,
+        gearReserved: false,
+        messages: [
+          'Thiago R.: Dupla campeã leva o Troféu MVP + Medalhas!'
+        ]
+      },
+      {
+        id: '4',
+        sport: 'indoor_volley',
+        title: 'Vôlei Misto 6v6',
+        arena: 'Ginásio Poliesportivo',
+        region: 'Zona Norte',
+        isPartner: false,
+        perk: 'Quadra coberta oficial',
+        dateLabel: 'Sábado',
+        time: '10:00',
+        currentPlayers: 10,
+        maxPlayers: 12,
+        price: 15,
+        hasTrophy: false,
+        organizer: 'Lucas P.',
+        rating: '4.7',
+        gearItem: 'Joelheira Pro Impacto',
+        gearPrice: 85,
+        pixPaid: false,
+        gearReserved: false,
+        messages: [
+          'Lucas P.: Precisamos de 1 levantador e 1 ponteiro!'
+        ]
+      }
+    ];
+
+    const PARTNER_STOPS = [
+      {
+        id: 's1',
+        name: 'Arena Bunker Tático',
+        sport: 'Paintball Cenário & Speed',
+        distance: '2,4 km',
+        amenities: ['Estacionamento', 'Lanchonete', 'Vestiário', 'Aluguel Kit'],
+        coupon: 'BUNKER15',
+        offer: '15% OFF em recargas e locação via MatPoint'
+      },
+      {
+        id: 's2',
+        name: 'Arena Beach Club',
+        sport: 'Vôlei de Praia & Futevôlei',
+        distance: '3,8 km',
+        amenities: ['Ducha Quente', 'Bar & Açaí', 'Iluminação LED', 'Wi-Fi'],
+        coupon: 'BEACH20',
+        offer: '20% OFF em horários alternativos (14h às 17h)'
+      },
+      {
+        id: 's3',
+        name: 'Point da Areia Conveniência',
+        sport: 'Futevôlei & Vôlei',
+        distance: '5,1 km',
+        amenities: ['Espaço Gourmet', 'Estacionamento', 'Loja Esportiva'],
+        coupon: 'POINTACAI',
+        offer: '1 Açaí grátis para o organizador da partida'
+      }
+    ];
+
+    let currentFilter = 'all';
+    let selectedPublishSport = 'paintball';
+    let jerseyColor = '#FF5722';
+    let avatarSport = 'paintball';
+    let activeMatchId = null;
+    let splashTimer = null;
+
+    // ==================== SPLASH SCREEN (2.8 SEGUNDOS) ====================
+    function triggerSplash() {
+      const splash = document.getElementById('splash-screen');
+      const bar = document.getElementById('splash-bar');
+
+      splash.classList.remove('hidden', 'opacity-0');
+      bar.classList.remove('animate-splash-bar');
+      void bar.offsetWidth; // força reflow para reiniciar animação
+      bar.classList.add('animate-splash-bar');
+
+      if (splashTimer) clearTimeout(splashTimer);
+      splashTimer = setTimeout(() => {
+        splash.classList.add('opacity-0');
+        setTimeout(() => {
+          splash.classList.add('hidden');
+        }, 300);
+      }, 2800);
+    }
+
+    // ==================== AVATAR ESPORTIVO DINÂMICO ====================
+    function renderAvatarSVG(sport, color) {
+      const torsoColor = sport === 'paintball' ? '#2E4033' : color;
+      let extraGear = '';
+
+      if (sport === 'paintball') {
+        extraGear = `
+          <rect x="64" y="32" width="52" height="38" rx="15" fill="#111827" stroke="#00E676" stroke-width="3" />
+          <rect x="70" y="41" width="40" height="14" rx="5" fill="#00E676" />
+          <rect x="42" y="108" width="88" height="12" rx="4" fill="#475569" />
+          <circle cx="106" cy="97" r="9" fill="#0F172A" stroke="#00E676" stroke-width="2" />
+        `;
+      } else if (sport === 'beach_volley') {
+        extraGear = `
+          <rect x="69" y="42" width="18" height="10" rx="3" fill="#0F172A" stroke="#FBBF24" stroke-width="2" />
+          <rect x="93" y="42" width="18" height="10" rx="3" fill="#0F172A" stroke="#FBBF24" stroke-width="2" />
+          <line x1="87" y1="46" x2="93" y2="46" stroke="#FBBF24" stroke-width="2" />
+          <circle cx="134" cy="122" r="16" fill="#FBBF24" stroke="#FFF" stroke-width="2" />
+        `;
+      } else if (sport === 'indoor_volley') {
+        extraGear = `
+          <rect x="65" y="166" width="21" height="14" rx="4" fill="#0284C7" />
+          <rect x="94" y="166" width="21" height="14" rx="4" fill="#0284C7" />
+          <text x="90" y="122" text-anchor="middle" fill="#FFF" font-size="18" font-weight="900">10</text>
+          <circle cx="134" cy="122" r="16" fill="#38BDF8" stroke="#FFF" stroke-width="2" />
+        `;
+      } else {
+        // footvolley
+        extraGear = `
+          <path d="M64 35 Q90 22 116 35 L122 40 L58 40 Z" fill="${color}" />
+          <circle cx="128" cy="202" r="16" fill="#FB923C" stroke="#FFF" stroke-width="2" />
+        `;
+      }
+
+      return `
+        <svg viewBox="0 0 180 230" class="w-full h-full">
+          <ellipse cx="90" cy="218" rx="44" ry="8" fill="rgba(15,23,42,0.18)" />
+          <rect x="67" y="145" width="17" height="65" rx="8" fill="#1E293B" />
+          <rect x="96" y="145" width="17" height="65" rx="8" fill="#1E293B" />
+          <path d="M54 85 C54 74, 126 74, 126 85 L120 150 L60 150 Z" fill="${torsoColor}" />
+          <circle cx="90" cy="50" r="24" fill="#F1C27D" />
+          ${sport !== 'paintball' ? `
+            <circle cx="82" cy="48" r="2.2" fill="#0F172A" />
+            <circle cx="98" cy="48" r="2.2" fill="#0F172A" />
+          ` : ''}
+          ${extraGear}
+        </svg>
+      `;
+    }
+
+    function updateAvatars() {
+      const svg = renderAvatarSVG(avatarSport, jerseyColor);
+      document.getElementById('header-avatar-btn').innerHTML = svg;
+      document.getElementById('profile-avatar-box').innerHTML = svg;
+    }
+
+    function setJerseyColor(color) {
+      jerseyColor = color;
+      document.querySelectorAll('.color-btn').forEach(btn => {
+        btn.classList.remove('ring-2', 'ring-offset-2', 'ring-amber-400');
+      });
+      const activeBtn = document.getElementById(`color-${color}`);
+      if (activeBtn) activeBtn.classList.add('ring-2', 'ring-offset-2', 'ring-amber-400');
+      updateAvatars();
+    }
+
+    function setAvatarSport(sport) {
+      avatarSport = sport;
+      document.querySelectorAll('.av-sport-btn').forEach(btn => {
+        btn.className = 'av-sport-btn px-3 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 font-bold text-xs text-left transition';
+        const span = btn.querySelector('span');
+        if (span) span.className = 'block text-[10px] font-normal text-slate-500';
+      });
+      const activeBtn = document.getElementById(`av-sp-${sport}`);
+      if (activeBtn) {
+        activeBtn.className = 'av-sport-btn px-3 py-2.5 rounded-xl bg-[#0F172A] text-white font-bold text-xs text-left transition';
+        const span = activeBtn.querySelector('span');
+        if (span) span.className = 'block text-[10px] font-normal text-slate-300';
+      }
+      updateAvatars();
+      showToast(`Avatar equipado para ${SPORT_META[sport].label}!`);
+    }
+
+    // ==================== NAVEGAÇÃO ENTRE ABAS ====================
+    function switchTab(tab) {
+      ['search', 'stops', 'publish', 'profile'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.add('hidden');
+      });
+      document.getElementById(`tab-${tab}`).classList.remove('hidden');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('text-[#FF5722]');
+        btn.classList.add('text-slate-500');
+        btn.querySelector('span').classList.remove('font-extrabold');
+        btn.querySelector('span').classList.add('font-semibold');
+      });
+
+      const activeNav = document.getElementById(`nav-${tab}`);
+      if (activeNav) {
+        activeNav.classList.remove('text-slate-500');
+        activeNav.classList.add('text-[#FF5722]');
+        activeNav.querySelector('span').classList.remove('font-semibold');
+        activeNav.querySelector('span').classList.add('font-extrabold');
+      }
+      document.getElementById('main-content').scrollTop = 0;
+    }
+
+    // ==================== BUSCA & FEED DE PARTIDAS ====================
+    function setSportFilter(sport) {
+      currentFilter = sport;
+      if (sport !== 'all') {
+        avatarSport = sport;
+        updateAvatars();
+      }
+
+      document.querySelectorAll('.filter-chip').forEach(chip => {
+        chip.className = 'filter-chip px-3.5 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200 shrink-0 transition';
+      });
+      const activeChip = document.getElementById(`filter-${sport}`);
+      if (activeChip) {
+        activeChip.className = 'filter-chip px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-[#0F172A] text-white shrink-0 transition';
+      }
+      renderMatches();
+    }
+
+    function renderMatches() {
+      const list = document.getElementById('matches-list');
+      const filtered = currentFilter === 'all' ? matches : matches.filter(m => m.sport === currentFilter);
+      document.getElementById('match-counter').textContent = `${filtered.length} ${filtered.length === 1 ? 'partida' : 'partidas'}`;
+
+      list.innerHTML = filtered.map(item => {
+        const missing = item.maxPlayers - item.currentPlayers;
+        const meta = SPORT_META[item.sport];
+        return `
+          <div onclick="openMatchModal('${item.id}')" class="cursor-pointer bg-white rounded-2xl p-4 border border-slate-200 shadow-sm hover:border-slate-300 active:scale-[0.99] transition">
+            <div class="flex justify-between items-start gap-2">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-1.5 mb-1">
+                  <span class="text-[11px] font-extrabold uppercase" style="color:${meta.color}">${meta.label}</span>
+                  <span class="text-xs font-semibold text-slate-500">• ${item.dateLabel}, ${item.time}</span>
+                </div>
+                <h3 class="text-base font-extrabold text-[#0F172A] truncate">${item.title}</h3>
+                <div class="flex items-center gap-1 mt-1.5 text-slate-600">
+                  <i data-lucide="navigation" class="w-3.5 h-3.5 text-[#FF5722] shrink-0"></i>
+                  <span class="text-xs font-semibold truncate">${item.arena} (${item.region})</span>
+                </div>
+              </div>
+
+              <div class="text-right shrink-0">
+                <span class="text-lg font-black text-[#0F172A] block leading-none">R$ ${item.price}</span>
+                <span class="text-[11px] text-slate-500">por vaga</span>
+              </div>
+            </div>
+
+            ${item.isPartner ? `
+              <div class="mt-3 px-2.5 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200/80 flex items-center gap-1.5">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+                <span class="text-[11px] font-bold text-emerald-800 truncate">Ponto Parceiro: ${item.perk}</span>
+              </div>
+            ` : ''}
+
+            <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <div class="flex items-center gap-1.5">
+                <div class="w-6 h-6 rounded-full bg-[#0F172A] text-white font-extrabold text-[11px] flex items-center justify-center">
+                  ${item.organizer[0]}
+                </div>
+                <span class="text-xs font-bold text-slate-800">${item.organizer}</span>
+                <span class="text-xs font-bold text-amber-600">★ ${item.rating}</span>
+                ${item.hasTrophy ? `<span title="Inclui Kit Premiação MVP" class="text-xs ml-0.5">🏆</span>` : ''}
+              </div>
+
+              <span class="px-2.5 py-1 rounded-full ${item.pixPaid ? 'bg-emerald-100 text-emerald-800' : 'bg-orange-50 text-[#EA580C]'} font-extrabold text-[11px]">
+                ${item.pixPaid ? '✓ Vaga Garantida' : (missing > 0 ? `Faltam ${missing} vagas` : 'Lotado')}
+              </span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // ==================== PARADAS / PONTOS DE ENCONTRO ====================
+    function renderStops() {
+      const container = document.getElementById('stops-list');
+      container.innerHTML = PARTNER_STOPS.map(stop => `
+        <div id="stop-card-${stop.id}" class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-2.5 transition">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-base font-extrabold text-[#0F172A]">${stop.name}</h3>
+              <p class="text-xs text-slate-500 font-medium">${stop.sport}</p>
+            </div>
+            <span class="text-xs font-extrabold text-[#FF5722] bg-orange-50 px-2.5 py-1 rounded-full">${stop.distance}</span>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5">
+            ${stop.amenities.map(am => `
+              <span class="px-2 py-1 rounded-md bg-slate-100 text-[11px] font-semibold text-slate-700">✓ ${am}</span>
+            `).join('')}
+          </div>
+
+          <div class="bg-orange-50/90 border border-orange-200 rounded-xl p-3 flex items-center justify-between gap-2">
+            <div>
+              <p class="text-xs font-bold text-orange-950">${stop.offer}</p>
+              <span class="text-[11px] font-extrabold text-[#EA580C] block mt-0.5">Cupom: ${stop.coupon}</span>
+            </div>
+            <button onclick="copyCoupon('${stop.coupon}')" class="px-3.5 py-2 rounded-lg bg-[#FF5722] hover:bg-orange-600 text-white font-extrabold text-xs shrink-0 transition">
+              Copiar
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function highlightStop(stopId) {
+      const card = document.getElementById(`stop-card-${stopId}`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.classList.add('ring-2', 'ring-[#00E676]');
+        setTimeout(() => card.classList.remove('ring-2', 'ring-[#00E676]'), 1600);
+      }
+    }
+
+    function copyCoupon(code) {
+      const temp = document.createElement('input');
+      temp.value = code;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      showToast(`Cupom ${code} copiado! Apresente na recepção da arena.`);
+    }
+
+    // ==================== PUBLICAR PARTIDA ====================
+    function selectPublishSport(sport) {
+      selectedPublishSport = sport;
+      document.querySelectorAll('.pub-sport-btn').forEach(btn => {
+        btn.className = 'pub-sport-btn p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold text-xs text-left transition';
+      });
+      const activeBtn = document.getElementById(`pub-sp-${sport}`);
+      if (activeBtn) {
+        activeBtn.className = 'pub-sport-btn p-2.5 rounded-xl bg-[#FF5722] text-white font-bold text-xs text-left transition';
+      }
+    }
+
+    function handlePublish(e) {
+      e.preventDefault();
+      const titleInput = document.getElementById('pub-title').value.trim();
+      const arenaParts = document.getElementById('pub-arena').value.split('|');
+      const timeVal = document.getElementById('pub-time').value || '21:00';
+      const basePrice = parseInt(document.getElementById('pub-price').value || '30', 10);
+      const hasTrophy = document.getElementById('pub-trophy').checked;
+      const finalPrice = hasTrophy ? basePrice + 8 : basePrice;
+      const maxMap = { paintball: 10, beach_volley: 4, indoor_volley: 12, footvolley: 4 };
+
+      const newMatch = {
+        id: String(Date.now()),
+        sport: selectedPublishSport,
+        title: titleInput || `Partida ${SPORT_META[selectedPublishSport].label}`,
+        arena: arenaParts[0],
+        region: arenaParts[1],
+        isPartner: arenaParts[2] === 'true',
+        perk: arenaParts[3] || 'Arena verificada',
+        dateLabel: 'Hoje',
+        time: timeVal,
+        currentPlayers: 1,
+        maxPlayers: maxMap[selectedPublishSport],
+        price: finalPrice,
+        hasTrophy,
+        organizer: 'Você',
+        rating: '4.9',
+        gearItem: 'Kit Equipamento Recomendado',
+        gearPrice: 120,
+        pixPaid: true,
+        gearReserved: false,
+        messages: ['Você: Partida criada! Vagas abertas para fechar o time.']
+      };
+
+      matches.unshift(newMatch);
+      document.getElementById('pub-title').value = '';
+      avatarSport = selectedPublishSport;
+      updateAvatars();
+      setSportFilter('all');
+      switchTab('search');
+      showToast('Partida publicada no radar com sucesso!');
+    }
+
+    // ==================== MODAL DA SALA DA PARTIDA ====================
+    function openMatchModal(id) {
+      const m = matches.find(item => item.id === id);
+      if (!m) return;
+      activeMatchId = id;
+
+      // Atualiza o avatar automaticamente para o esporte da sala
+      avatarSport = m.sport;
+      updateAvatars();
+
+      document.getElementById('modal-sport-badge').textContent = SPORT_META[m.sport].label.toUpperCase();
+      document.getElementById('modal-title').textContent = m.title;
+      document.getElementById('modal-mini-avatar').innerHTML = renderAvatarSVG(m.sport, jerseyColor);
+      document.getElementById('modal-arena').textContent = `📍 ${m.arena} (${m.region})`;
+      document.getElementById('modal-time').textContent = `${m.dateLabel} • ${m.time} • Organizador: ${m.organizer} ★ ${m.rating}`;
+
+      const missing = m.maxPlayers - m.currentPlayers;
+      document.getElementById('modal-spots-pill').textContent = m.pixPaid
+        ? '✓ Você está dentro'
+        : (missing > 0 ? `Faltam ${missing} vagas` : 'Lotado');
+
+      document.getElementById('modal-pix-desc').textContent = m.hasTrophy
+        ? `${m.arena} + Kit Premiação MVP (Troféu e Medalhas)`
+        : `Rateio direto da locação em ${m.arena}`;
+
+      const pixBtn = document.getElementById('modal-pix-btn');
+      if (m.pixPaid) {
+        pixBtn.textContent = '✓ Confirmado';
+        pixBtn.className = 'px-4 py-2.5 rounded-xl bg-emerald-600 text-white font-extrabold text-xs shrink-0';
+      } else {
+        pixBtn.textContent = `Pagar R$ ${m.price}`;
+        pixBtn.className = 'px-4 py-2.5 rounded-xl bg-[#FF5722] hover:bg-orange-600 text-white font-extrabold text-xs shrink-0 transition';
+      }
+
+      document.getElementById('modal-gear-name').textContent = m.gearItem;
+      document.getElementById('modal-gear-price').textContent = `R$ ${m.gearPrice},00`;
+
+      const gearBtn = document.getElementById('modal-gear-btn');
+      if (m.gearReserved) {
+        gearBtn.textContent = '✓ Reservado';
+        gearBtn.className = 'px-3.5 py-2 rounded-xl bg-[#0F172A] text-white font-extrabold text-xs shrink-0';
+      } else {
+        gearBtn.textContent = 'Reservar';
+        gearBtn.className = 'px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#0F172A] font-extrabold text-xs shrink-0 transition';
+      }
+
+      renderModalChat(m);
+      document.getElementById('match-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeMatchModal() {
+      document.getElementById('match-modal').classList.add('hidden');
+      activeMatchId = null;
+      renderMatches();
+    }
+
+    function confirmPix() {
+      const m = matches.find(item => item.id === activeMatchId);
+      if (!m || m.pixPaid) return;
+      m.pixPaid = true;
+      if (m.currentPlayers < m.maxPlayers) m.currentPlayers += 1;
+      m.messages.push('Sistema: Você confirmou sua vaga via Pix!');
+      openMatchModal(m.id);
+      showToast('Vaga garantida! Rateio Pix confirmado.');
+    }
+
+    function reserveGear() {
+      const m = matches.find(item => item.id === activeMatchId);
+      if (!m || m.gearReserved) return;
+      m.gearReserved = true;
+      openMatchModal(m.id);
+      showToast('Equipamento reservado para retirada na arena!');
+    }
+
+    function renderModalChat(m) {
+      const chatList = document.getElementById('modal-chat-list');
+      chatList.innerHTML = m.messages.map(msg => `
+        <div class="bg-slate-100 px-3 py-2 rounded-xl text-xs font-medium text-slate-800">
+          ${msg}
+        </div>
+      `).join('');
+      chatList.scrollTop = chatList.scrollHeight;
+    }
+
+    function sendMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('modal-chat-input');
+      const txt = input.value.trim();
+      if (!txt || !activeMatchId) return;
+      const m = matches.find(item => item.id === activeMatchId);
+      m.messages.push(`Você: ${txt}`);
+      input.value = '';
+      renderModalChat(m);
+    }
+
+    // ==================== TOAST ====================
+    let toastTimer = null;
+    function showToast(text) {
+      const t = document.getElementById('toast');
+      document.getElementById('toast-text').textContent = text;
+      t.classList.remove('hidden');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.add('hidden'), 2600);
+    }
+
+    // ==================== INICIALIZAÇÃO ====================
+    document.addEventListener('DOMContentLoaded', () => {
+      updateAvatars();
+      renderMatches();
+      renderStops();
+      lucide.createIcons();
+      triggerSplash();
+    });
+  </script>
+</body>
+</html>
+```
